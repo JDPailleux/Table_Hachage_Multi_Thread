@@ -23,6 +23,9 @@ reduction des zones critiques (mutex)
 Comparaison des CRC
 Choix d'un CRC efficace
 
+rdtrc => /!\ freq variable dù au turbo et souci pour calculer a partir des cycles un temps en s
+comparer à gettimeofday et tester en fixant la freq
+
 -- Choix des optimisations => justifier et expliquer pourquoi l'ancienne n'est pas bonne.
 -- Si ce qui est présent dans le code est le plus opti => le justifier, pourquoi est-il meilleur qu'une autre approche
 -- Analyse de perf sur diff paramètres comme la taille des données, le nombre d'opérations sur la table de hachage,...
