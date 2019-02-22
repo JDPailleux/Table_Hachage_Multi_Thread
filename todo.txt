@@ -8,7 +8,7 @@ Ofast
 fastmath
 hwtopo
 lstopo
-Maqao
+MAQAO
 cachegrind
 AVX2
 icc or gcc
@@ -16,6 +16,22 @@ https://github.com/gperftools/gperftools
 likwid
 likwid-topology
 /proc/cpuinfo
+
+MAQAO
+TAU https://www.cs.uoregon.edu/research/tau/home.php
+MALT https://github.com/memtt/malt
+Scalasca
+
+PAYANT 
+  - VAMPIR - trace MPI
+  - XE_AMPLIFIER - intel vtune
+  - MALP - profiling MPI + openMP
+  - easytrace
+  
+https://www.arm.com/products/development-tools/server-and-hpc/forge/map
+  
+http://www.vi-hps.org/tools
+
 
 # IDEAS
 
