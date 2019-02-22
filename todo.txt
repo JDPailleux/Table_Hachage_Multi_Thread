@@ -26,6 +26,8 @@ Choix d'un CRC efficace
 rdtrc => /!\ freq variable dù au turbo et souci pour calculer a partir des cycles un temps en s
 comparer à gettimeofday et tester en fixant la freq
 
+isoler des fonctions pour les profiler. Jouer avec leur input.
+
 Archi de tests de perf:
 - Driver
 - Kernel
