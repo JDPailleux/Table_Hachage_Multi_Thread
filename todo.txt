@@ -17,6 +17,8 @@ likwid
 likwid-topology
 /proc/cpuinfo
 
+https://stackoverflow.com/questions/33758993/why-doesnt-gcc-show-vectorization-information
+
 MAQAO
 TAU https://www.cs.uoregon.edu/research/tau/home.php
 MALT https://github.com/memtt/malt
