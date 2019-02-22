@@ -1,0 +1,12 @@
+volatile
+unroll-loops
+march
+O3
+Ofast
+fastmath
+hwtopo
+lstopo
+Maqao
+cachegrind
+AVX2
+icc or gcc
