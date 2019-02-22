@@ -10,3 +10,7 @@ Maqao
 cachegrind
 AVX2
 icc or gcc
+-- Choix des optimisations => justifier et expliquer pourquoi l'ancienne n'est pas bonne.
+-- Si ce qui est présent dans le code est le plus opti => le justifier, pourquoi est-il meilleur qu'une autre approche
+-- Analyse de perf sur diff paramètres comme la taille des données, le nombre d'opérations sur la table de hachage,...
+-- Déterminer les lieux du code qui sont suceptible de ralentir l'exécution à l'aide d'outils comme MAQAO, gprof,...
