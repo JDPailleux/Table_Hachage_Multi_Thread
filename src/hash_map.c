@@ -3,38 +3,13 @@
 #include <stdlib.h>
 #include "hash_map.h"
 
-const unsigned char CRC7_POLY = 0x91;
-
-/*
- * getCRC,
- * this function compute a checksum for a given I/O request.
- */
-uint32_t
-getCRC(char *message, uint32_t length)
-{
-    uint32_t i, j, crc = 0;
-
-    for (i = 0; i < length; i++)
-    {
-        crc ^= message[i];
-        for (j = 0; j < 8; j++)
-        {
-            if (crc & 1)
-                crc ^= CRC7_POLY;
-            crc >>= 1;
-        }
-    }
-
-  return crc;
-}
-
 
 void*
 ht_object_get(struct ht_table *hash_table,
               const void *lookup_object,
               bool create_if_does_not_exist)
 {
-    if(!hash_table || !lookup_object )
+    if(!hash_table || !lookup_object)
     	return NULL;
 
     pthread_mutex_lock(&hash_table->lock);

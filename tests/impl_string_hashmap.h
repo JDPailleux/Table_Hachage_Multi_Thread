@@ -9,10 +9,15 @@
 typedef struct string
 {
     char string[STRING_SIZE];
-    ht_object_t intrusive_ht_object;
     uint32_t crc; // Code crc to check if the value is correct
+    ht_object_t intrusive_ht_object;
 }string_t;
 
+/*
+ * getCRC,
+ * this function compute a checksum for a given I/O request.
+ */
+uint32_t getCRC(char *message, uint32_t length);
 
 /**
  * dump_table - print in the shell, the content of the hashtable
