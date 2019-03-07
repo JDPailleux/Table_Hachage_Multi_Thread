@@ -53,6 +53,8 @@ int main(int argc, char* argv[])
                                   hash_string_generate_value);
 
     gettimeofday(&start, NULL);
+    buildCRCTable();
+
                                      	                                  
 	for(int i = 0 ; i < NB_THREADS; i++)
 	{

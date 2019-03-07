@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
     
     struct timeval start, end;
     gettimeofday(&start, NULL);
-
+    buildCRCTable();
 
     ht_table_t* ht = ht_new( SIZE_HASMAP , __builtin_offsetof(string_t, intrusive_ht_object) ,
     							  hash_string_new ,

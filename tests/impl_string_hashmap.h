@@ -10,7 +10,7 @@ typedef struct string
 {
     char string[STRING_SIZE];
     ht_object_t intrusive_ht_object;
-    uint32_t crc; // crc code to check if the value is correct
+    char crc; // crc code to check if the value is correct
 }string_t;
 
 /*
@@ -19,6 +19,12 @@ typedef struct string
  */
 uint32_t getCRC(char *message, uint32_t length);
 
+/*
+ * Advanced getCRC,
+ */
+unsigned char getCRCForByte(unsigned char val);
+void buildCRCTable();
+unsigned char getCRC2(unsigned char message[], unsigned char length);
 /**
  * dump_table - print in the shell, the content of the hashtable
  * for debug purposes 

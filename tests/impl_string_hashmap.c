@@ -5,22 +5,39 @@
 #include "impl_string_hashmap.h"
 
 const unsigned char CRC7_POLY = 0x91;
-
-uint32_t getCRC(char *message, uint32_t length)
+unsigned char CRCTable[256];
+ 
+unsigned char getCRCForByte(unsigned char val)
 {
-    uint32_t i, j, crc = 0;
-
-    for (i = 0; i < length; i++)
-    {
-        crc ^= message[i];
-        for (j = 0; j < 8; j++)
-        {
-            if (crc & 1)
-                crc ^= CRC7_POLY;
-            crc >>= 1;
-        }
-    }
-
+  unsigned char j;
+ 
+  for (j = 0; j < 8; j++)
+  {
+    if (val & 1)
+      val ^= CRC7_POLY;
+    val >>= 1;
+  }
+ 
+  return val;
+}
+ 
+void buildCRCTable()
+{
+  int i;
+ 
+  // fill an array with CRC values of all 256 possible bytes
+  for (i = 0; i < 256; i++)
+  {
+    CRCTable[i] = getCRCForByte(i);
+  }
+}
+ 
+unsigned char getCRC2(unsigned char message[], unsigned char length)
+{
+  unsigned char i, crc = 0;
+ 
+  for (i = 0; i < length; i++)
+    crc = CRCTable[crc ^ message[i]];
   return crc;
 }
 
@@ -51,7 +68,6 @@ void hash_string_destroy( void* a)
 {
     assert(a);
     string_t* object = (string_t*) a;
-    object->crc = 0;
     object->intrusive_ht_object.ref_count = 0;
     object->intrusive_ht_object.next = NULL;
     object->intrusive_ht_object.prev = NULL;
@@ -61,7 +77,7 @@ void* hash_string_new(const void* a)
 {
     assert(a);
     string_t* object = (string_t*) a;
-    object->crc = getCRC(object->string, STRING_SIZE);
+    object->crc = getCRC2(object->string, STRING_SIZE);
     object->intrusive_ht_object.ref_count = 0;
     object->intrusive_ht_object.next = NULL;
     object->intrusive_ht_object.prev = NULL;
@@ -70,7 +86,7 @@ void* hash_string_new(const void* a)
 
 bool hash_string_comparator(const void *a ,const  void* b)
 {   
-    uint32_t a_crc = getCRC(((string_t *) a)->string, STRING_SIZE);
+    char a_crc = getCRC2(((string_t *) a)->string, STRING_SIZE);
     if (a_crc != ((string_t *) b)->crc) 
         return false;
 
