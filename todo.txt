@@ -1,0 +1,58 @@
+# TOOLS
+
+volatile
+unroll-loops
+march
+O3
+Ofast
+fastmath
+hwtopo
+lstopo
+MAQAO
+cachegrind
+AVX2
+icc or gcc
+https://github.com/gperftools/gperftools
+likwid
+likwid-topology
+/proc/cpuinfo
+
+https://stackoverflow.com/questions/33758993/why-doesnt-gcc-show-vectorization-information
+
+MAQAO
+TAU https://www.cs.uoregon.edu/research/tau/home.php
+MALT https://github.com/memtt/malt
+Scalasca
+
+PAYANT 
+  - VAMPIR - trace MPI
+  - XE_AMPLIFIER - intel vtune
+  - MALP - profiling MPI + openMP
+  - easytrace
+  
+https://www.arm.com/products/development-tools/server-and-hpc/forge/map
+  
+http://www.vi-hps.org/tools
+
+
+# IDEAS
+
+reduction des zones critiques (mutex)
+Comparaison des CRC
+Choix d'un CRC efficace
+
+rdtrc => /!\ freq variable dù au turbo et souci pour calculer a partir des cycles un temps en s
+comparer à gettimeofday et tester en fixant la freq
+
+isoler des fonctions pour les profiler. Jouer avec leur input.
+
+Archi de tests de perf:
+- Driver
+- Kernel
+- Warmup
+- multiples runs
+
+-- Choix des optimisations => justifier et expliquer pourquoi l'ancienne n'est pas bonne.
+-- Si ce qui est présent dans le code est le plus opti => le justifier, pourquoi est-il meilleur qu'une autre approche
+-- Analyse de perf sur diff paramètres comme la taille des données, le nombre d'opérations sur la table de hachage,...
+-- Déterminer les lieux du code qui sont suceptible de ralentir l'exécution à l'aide d'outils comme MAQAO, gprof,...
