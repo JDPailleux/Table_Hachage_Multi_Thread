@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <time.h>
+#include <sys/time.h>
 #include <hash_map.h>
 #include"impl_string_hashmap.h"
 
@@ -56,7 +58,10 @@ int main(int argc, char* argv[])
 {
     string_t a;
     strcpy( a.string , "hello world");
- 
+    
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     ht_table_t* ht = ht_new( SIZE_HASMAP , __builtin_offsetof(string_t, intrusive_ht_object),
     								  hash_string_new ,
                                       hash_string_destroy,
@@ -77,6 +82,10 @@ int main(int argc, char* argv[])
 
     dump_table(ht);
     ht_destroy(ht);
+
+    gettimeofday(&end, NULL);
+    printf("Elapsed time : %ld us\n", ((end.tv_sec * 1000000 + end.tv_usec)
+		  - (start.tv_sec * 1000000 + start.tv_usec)));
     
     return 0;
 }

@@ -10,6 +10,7 @@ typedef struct string
 {
     char string[STRING_SIZE];
     ht_object_t intrusive_ht_object;
+    uint32_t crc;
 }string_t;
 
 

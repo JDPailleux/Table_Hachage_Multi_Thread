@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <time.h>
+#include <sys/time.h>
 #include <hash_map.h>
 #include"impl_string_hashmap.h"
 
-#define NB_THREADS 26
+#define NB_THREADS 200
 
 
 typedef struct threads_param
@@ -39,6 +41,9 @@ int main(int argc, char* argv[])
 {
 	pthread_t threads_pool[NB_THREADS];
 	threads_param_t params_pool[NB_THREADS];
+    
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
 
 
     ht_table_t* ht = ht_new( SIZE_HASMAP , __builtin_offsetof(string_t, intrusive_ht_object) ,
@@ -61,6 +66,8 @@ int main(int argc, char* argv[])
     dump_table(ht);
     ht_destroy(ht);
     
-    return 0;
+    gettimeofday(&end, NULL);
+    printf("Elapsed time : %ld us\n", ((end.tv_sec * 1000000 + end.tv_usec)
+		  - (start.tv_sec * 1000000 + start.tv_usec)));
 }
 
