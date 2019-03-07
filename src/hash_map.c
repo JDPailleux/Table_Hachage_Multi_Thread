@@ -18,7 +18,7 @@ ht_object_get(struct ht_table *hash_table,
     bool added = false;
     ht_object_t* returned_result = NULL;
 
-    pthread_mutex_lock(&hash_table->lock);
+    pthread_mutex_lock(&hash_table->lock[hash]);
     for( ht_object_t* iter =  hash_table->nodes[hash];
 			      	  iter != NULL && !added ;
     	              iter = iter->next)
@@ -47,7 +47,7 @@ ht_object_get(struct ht_table *hash_table,
         returned_result = new_object;
     }
     
-    pthread_mutex_unlock(&hash_table->lock);
+    pthread_mutex_unlock(&hash_table->lock[hash]);
     
 
     return returned_result;
@@ -60,8 +60,9 @@ ht_object_put(struct ht_table *hash_table,
     if(!hash_table || !hash_table_object)
         	return;
 
-    pthread_mutex_lock(&hash_table->lock);
+    int hash = hash_table->hash_object_generate_value(hash_table_object);
 
+    pthread_mutex_lock(&hash_table->lock[hash]);
     ht_object_t* current_object = (ht_object_t *) hash_table_object;
     assert(current_object->ref_count > 0);
     current_object->ref_count--;
@@ -77,7 +78,7 @@ ht_object_put(struct ht_table *hash_table,
 		hash_table->hash_object_destroy( current_object );
     }
 	    
-    pthread_mutex_unlock(&hash_table->lock);
+    pthread_mutex_unlock(&hash_table->lock[hash]);
 }
 
 
@@ -85,9 +86,10 @@ void
 ht_destroy(struct ht_table *hash_table)
 {
 
-    pthread_mutex_lock(&hash_table->lock);
+    
     for(unsigned i = 0 ; i < hash_table->number_of_hash_table_buckets; i++)
-    {
+    {   
+        pthread_mutex_lock(&hash_table->lock[i]);
         ht_object_t* current = hash_table->nodes[i];
         while(current != NULL)
         {
@@ -95,11 +97,11 @@ ht_destroy(struct ht_table *hash_table)
 			hash_table->hash_object_destroy(current);
             current = next;
         }
+        pthread_mutex_unlock(&hash_table->lock[i]);
+        pthread_mutex_destroy( &hash_table->lock[i]);
     }
     free(hash_table->nodes);
-    pthread_mutex_unlock(&hash_table->lock);
-    
-    pthread_mutex_destroy( &hash_table->lock );
+    free(hash_table->lock);
     free(hash_table);
 }
 
@@ -123,7 +125,10 @@ ht_new(size_t number_of_hash_table_buckets,
     
     created_ht->nodes = (ht_object_t**) (malloc(sizeof(ht_object_t*) *\
     							 number_of_hash_table_buckets));
-    pthread_mutex_init(&(created_ht->lock), NULL);
+    // pthread_mutex_init(&(created_ht->lock), NULL);
+    created_ht->lock = malloc(sizeof(pthread_mutex_t)*number_of_hash_table_buckets);
+    for(int i = 0; i < number_of_hash_table_buckets; i++)
+        pthread_mutex_init(&(created_ht->lock[i]), NULL);
     
     for(unsigned i = 0 ; i < number_of_hash_table_buckets ; i++)
            created_ht->nodes[i] = NULL;

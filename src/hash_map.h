@@ -27,7 +27,7 @@ typedef struct ht_table
      */
     ht_object_t** nodes;
    
-    pthread_mutex_t lock;
+    pthread_mutex_t* lock; // Change to an array of mutex of size number_of_hash_table_buckets
     
 } ht_table_t;	
 
