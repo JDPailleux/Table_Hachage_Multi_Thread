@@ -56,3 +56,8 @@ Archi de tests de perf:
 -- Si ce qui est présent dans le code est le plus opti => le justifier, pourquoi est-il meilleur qu'une autre approche
 -- Analyse de perf sur diff paramètres comme la taille des données, le nombre d'opérations sur la table de hachage,...
 -- Déterminer les lieux du code qui sont suceptible de ralentir l'exécution à l'aide d'outils comme MAQAO, gprof,...
+
+
+# CRC
+https://github.com/petewarden/c_hashmap/blob/master/hashmap.c
+https://www.pololu.com/docs/0J44/6.7.6
