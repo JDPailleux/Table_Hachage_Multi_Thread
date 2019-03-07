@@ -70,7 +70,7 @@ void* hash_string_new(const void* a)
 
 bool hash_string_comparator(const void *a ,const  void* b)
 {   
-    if (((string_t *) a)->crc != ((string_t *) b)->crc) 
+    if (((string_t *) a)->crc != ((string_t *) b)->crc)
         return false;
 
     return strcmp( ((string_t *) a)->string , \
