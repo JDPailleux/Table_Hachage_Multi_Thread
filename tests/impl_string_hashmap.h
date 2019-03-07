@@ -10,7 +10,7 @@ typedef struct string
 {
     char string[STRING_SIZE];
     ht_object_t intrusive_ht_object;
-    uint32_t crc;
+    uint32_t crc; // Code crc to check if the value is correct
 }string_t;
 
 

@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <pthread.h>
+#include <stdint.h>
 
 
 typedef struct ht_object
