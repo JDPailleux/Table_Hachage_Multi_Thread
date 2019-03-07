@@ -15,11 +15,25 @@ $(LIB) : $(OBJ) Makefile
 lib/%.o :  src/%.c Makefile
 	$(CC) $(C_FLAGS) -c $< -o $@
 
-test : tests/test1.c tests/test2.c tests/impl_string_hashmap.c Makefile  
+tests : tests/test1.c tests/test2.c tests/test3.c tests/impl_string_hashmap.c Makefile  
 	$(CC) ./tests/test1.c ./tests/impl_string_hashmap.c -o ./tests/test1 $(TEST_FLAGS)
 	./tests/test1
 	$(CC) ./tests/test2.c -g ./tests/impl_string_hashmap.c -o ./tests/test2 $(TEST_FLAGS) 
 	./tests/test2
+	$(CC) ./tests/test3.c -g ./tests/impl_string_hashmap.c -o ./tests/test3 $(TEST_FLAGS) 
+	./tests/test3
+
+test1: tests/test1.c tests/impl_string_hashmap.c Makefile
+	$(CC) ./tests/test1.c ./tests/impl_string_hashmap.c -o ./tests/test1 $(TEST_FLAGS)
+	./tests/test1
+
+test2: tests/test2.c tests/impl_string_hashmap.c Makefile
+	$(CC) ./tests/test2.c -g ./tests/impl_string_hashmap.c -o ./tests/test2 $(TEST_FLAGS) 
+	./tests/test2
+
+test3: tests/test3.c tests/impl_string_hashmap.c Makefile
+	$(CC) ./tests/test3.c -g ./tests/impl_string_hashmap.c -o ./tests/test3 $(TEST_FLAGS) 
+	./tests/test3
 
 clean:
 	rm $(LIB) $(OBJ) 
