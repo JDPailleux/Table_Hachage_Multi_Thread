@@ -9,6 +9,7 @@
 #include"impl_string_hashmap.h"
 
 #define NB_THREADS 26
+#define NB_READS_PER_THREADS 1000
 
 
 typedef struct threads_param
@@ -22,7 +23,7 @@ void* thread_callback(void* args)
     threads_param_t* params = (threads_param_t*) args;
     int i =0;
 	
-    while( i < 100)
+    while( i < NB_READS_PER_THREADS)
     {
         i++;
         void* handler_data = ht_object_get( params->ht , (void*) &(params->a) , true);
@@ -43,7 +44,6 @@ int main(int argc, char* argv[])
 	threads_param_t params_pool[NB_THREADS];
     
     struct timeval start, end;
-    gettimeofday(&start, NULL);
 
 
     ht_table_t* ht = ht_new( SIZE_HASMAP , __builtin_offsetof(string_t, intrusive_ht_object) ,
@@ -51,6 +51,8 @@ int main(int argc, char* argv[])
                                   hash_string_destroy,
                                   hash_string_comparator,
                                   hash_string_generate_value);
+
+    gettimeofday(&start, NULL);
                                      	                                  
 	for(int i = 0 ; i < NB_THREADS; i++)
 	{
@@ -63,10 +65,15 @@ int main(int argc, char* argv[])
  	for(int i = 0 ; i < NB_THREADS; i++)
 	    pthread_join(threads_pool[i], NULL);
 
+    gettimeofday(&end, NULL);
     dump_table(ht);
     ht_destroy(ht);
-    
-    gettimeofday(&end, NULL);
+
+    printf("NB THREADS: %d\n", NB_THREADS);
+    printf("NB READS PER THREAD: %d\n", NB_READS_PER_THREADS);
+    printf("AVERAGE TIME PER READ: %f us\n", (float)((end.tv_sec * 1000000 + end.tv_usec)
+		  - (start.tv_sec * 1000000 + start.tv_usec))
+          /NB_THREADS/NB_READS_PER_THREADS);
     printf("Elapsed time : %ld us\n", ((end.tv_sec * 1000000 + end.tv_usec)
 		  - (start.tv_sec * 1000000 + start.tv_usec)));
 }
