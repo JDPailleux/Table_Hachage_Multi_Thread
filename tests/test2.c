@@ -8,7 +8,7 @@
 #include <hash_map.h>
 #include"impl_string_hashmap.h"
 
-#define NB_THREADS 4
+#define NB_THREADS 26
 
 
 typedef struct threads_param

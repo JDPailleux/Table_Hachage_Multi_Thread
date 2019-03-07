@@ -12,13 +12,13 @@ ht_object_get(struct ht_table *hash_table,
     if(!hash_table || !lookup_object)
     	return NULL;
 
-    pthread_mutex_lock(&hash_table->lock);
 
     int hash = hash_table->hash_object_generate_value(lookup_object);
 
     bool added = false;
     ht_object_t* returned_result = NULL;
 
+    pthread_mutex_lock(&hash_table->lock);
     for( ht_object_t* iter =  hash_table->nodes[hash];
 			      	  iter != NULL && !added ;
     	              iter = iter->next)
