@@ -9,7 +9,7 @@
 #include"impl_string_hashmap.h"
 
 #define NB_THREADS 26
-#define NB_READS_PER_THREADS 1000
+#define NB_ADD_PER_THREADS 1000
 
 
 typedef struct threads_param
@@ -23,7 +23,7 @@ void* thread_callback(void* args)
     threads_param_t* params = (threads_param_t*) args;
     int i =0;
 	
-    while( i < NB_READS_PER_THREADS)
+    while( i < NB_ADD_PER_THREADS)
     {
         i++;
         void* handler_data = ht_object_get( params->ht , (void*) &(params->a) , true);
@@ -70,10 +70,10 @@ int main(int argc, char* argv[])
     ht_destroy(ht);
 
     printf("NB THREADS: %d\n", NB_THREADS);
-    printf("NB READS PER THREAD: %d\n", NB_READS_PER_THREADS);
-    printf("AVERAGE TIME PER READ: %f us\n", (float)((end.tv_sec * 1000000 + end.tv_usec)
+    printf("NB ADD PER THREAD: %d\n", NB_ADD_PER_THREADS);
+    printf("AVERAGE TIME PER ADD: %f us\n", (float)((end.tv_sec * 1000000 + end.tv_usec)
 		  - (start.tv_sec * 1000000 + start.tv_usec))
-          /NB_THREADS/NB_READS_PER_THREADS);
+          /NB_THREADS/NB_ADD_PER_THREADS);
     printf("Elapsed time : %ld us\n", ((end.tv_sec * 1000000 + end.tv_usec)
 		  - (start.tv_sec * 1000000 + start.tv_usec)));
 }
