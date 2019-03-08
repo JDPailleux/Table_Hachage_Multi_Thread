@@ -3,7 +3,7 @@
 
 #include <hash_map.h>
 
-#define SIZE_HASMAP 7
+#define SIZE_HASMAP 10
 #define STRING_SIZE 100
 
 typedef struct string
