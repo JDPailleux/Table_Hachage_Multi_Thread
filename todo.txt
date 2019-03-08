@@ -61,3 +61,20 @@ Archi de tests de perf:
 # CRC
 https://github.com/petewarden/c_hashmap/blob/master/hashmap.c
 https://www.pololu.com/docs/0J44/6.7.6
+
+
+
+# TODO
+
+Tests pour tous les parametres
+Garder nos differentes versions poureffectuer dessus tout les tests et pouvori des graphs comparatifs de performance.
+Chercher encore un meilleur CRC
+Chercher encore une meilleure gestion de verrou
+meilleure fonction de hachage de la clé
+essayer faire tourner MAQAO
+essayer gprof, cachegrind
+changer compilateur et options de compilation
+isoler les fonctions pour les profiler
+rdtrc et comparer à gettimeofday
+tests avec les ratios de lecture/ecriture, changer les parametres type: degré de parallélisme et taille des valeur associée aux clefs.
+voir si on peut diminuer les branchement
