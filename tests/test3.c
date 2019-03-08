@@ -8,7 +8,7 @@
 #include <hash_map.h>
 #include"impl_string_hashmap.h"
 
-#define NB_THREADS 26
+#define NB_THREADS 10
 #define NB_ADD_PER_THREADS 1000
 
 

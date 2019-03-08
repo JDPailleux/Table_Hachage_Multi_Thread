@@ -2,7 +2,7 @@
 LIB=./lib/libHashMap.so
 SRC= $(wildcard src/*.c)
 OBJ= $(subst src/, lib/,  $(SRC:.c=.o))
-C_FLAGS= -fPIC -Wall -O3 -Ofast -std=c99
+C_FLAGS= -fPIC -Wall -Ofast -funroll-loops -march=skylake -std=c99
 LD_FLAGS= -shared -fPIC -lpthread
 CC=gcc
 
