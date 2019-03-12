@@ -84,12 +84,10 @@ ht_object_put(struct ht_table *hash_table,
 
 void
 ht_destroy(struct ht_table *hash_table)
-{
-
-    
+{  
     for(unsigned i = 0 ; i < hash_table->number_of_hash_table_buckets; i++)
     {   
-        pthread_mutex_lock(&hash_table->lock[i]);
+        // pthread_mutex_lock(&hash_table->lock[i]);
         ht_object_t* current = hash_table->nodes[i];
         while(current != NULL)
         {
@@ -97,8 +95,8 @@ ht_destroy(struct ht_table *hash_table)
 			hash_table->hash_object_destroy(current);
             current = next;
         }
-        pthread_mutex_unlock(&hash_table->lock[i]);
-        pthread_mutex_destroy( &hash_table->lock[i]);
+        // pthread_mutex_unlock(&hash_table->lock[i]);
+        // pthread_mutex_destroy( &hash_table->lock[i]);
     }
     free(hash_table->nodes);
     free(hash_table->lock);

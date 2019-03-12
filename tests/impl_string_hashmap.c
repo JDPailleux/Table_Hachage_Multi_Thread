@@ -69,7 +69,7 @@ void hash_string_destroy( void* a)
     assert(a);
     string_t* object = (string_t*) a;
     object->intrusive_ht_object.ref_count = 0;
-    object->intrusive_ht_object.next = NULL;
+    // object->intrusive_ht_object.next = NULL;
     object->intrusive_ht_object.prev = NULL;
 }
 

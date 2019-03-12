@@ -8,8 +8,8 @@
 #include <hash_map.h>
 #include"impl_string_hashmap.h"
 
-#define NB_THREADS 10
-#define NB_ADD_PER_THREADS 1000
+#define NB_THREADS 4
+#define NB_ADD_PER_THREADS 10000000
 
 
 typedef struct threads_param
@@ -78,5 +78,7 @@ int main(int argc, char* argv[])
           /NB_THREADS/NB_ADD_PER_THREADS);
     printf("Elapsed time : %ld us\n", ((end.tv_sec * 1000000 + end.tv_usec)
 		  - (start.tv_sec * 1000000 + start.tv_usec)));
+
+    return 0;
 }
 
