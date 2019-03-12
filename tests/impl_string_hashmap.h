@@ -41,4 +41,7 @@ bool hash_string_comparator(const void *a ,const  void* b);
 void* hash_string_new(const void* a);
 void hash_string_destroy(void* a);
 
+int hash_string_generate_value2(const void* a);
+int hash_string_generate_value3(const void* a);
+
 #endif

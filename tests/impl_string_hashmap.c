@@ -97,5 +97,18 @@ bool hash_string_comparator(const void *a ,const  void* b)
 int hash_string_generate_value(const void* a)
 {
     return (int) ( ((string_t*) a)->string[0] - 'a') % SIZE_HASMAP;
-    // return (int) ( ((string_t*) a)->string[0]) % SIZE_HASMAP;
+}
+
+int hash_string_generate_value2(const void* a)
+{
+    return (int) ( ((string_t*) a)->string[0]) % SIZE_HASMAP;
+}
+
+int hash_string_generate_value3(const void* a)
+{
+  int hash = 0;
+  for(int i = 0; i < STRING_SIZE; i++){
+    hash += (int) ( ((string_t*) a)->string[0] - 'a');
+  }
+  return hash % SIZE_HASMAP;
 }
