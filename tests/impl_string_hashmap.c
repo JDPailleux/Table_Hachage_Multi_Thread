@@ -26,9 +26,12 @@ void buildCRCTable()
   int i;
  
   // fill an array with CRC values of all 256 possible bytes
-  for (i = 0; i < 256; i++)
+  for (i = 0; i < 64; i+=4)
   {
     CRCTable[i] = getCRCForByte(i);
+    CRCTable[i+1] = getCRCForByte(i+1);
+    CRCTable[i+2] = getCRCForByte(i+2);
+    CRCTable[i+3] = getCRCForByte(i+3);
   }
 }
  
@@ -37,8 +40,9 @@ unsigned char getCRC2(unsigned char message[], unsigned char length)
   unsigned char i, crc = 0;
  
   for (i = 0; i < length; i++)
-    crc = CRCTable[crc ^ message[i]];
-  return crc;
+    // crc = CRCTable[crc ^ message[i]];
+    crc = crc^message[i];
+  return CRCTable[crc];
 }
 
 void dump_table( ht_table_t* hash_table)
