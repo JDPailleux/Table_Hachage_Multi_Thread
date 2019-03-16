@@ -40,8 +40,7 @@ unsigned char getCRC2(unsigned char message[], unsigned char length)
   unsigned char i, crc = 0;
  
   for (i = 0; i < length; i++)
-    // crc = CRCTable[crc ^ message[i]];
-    crc = crc^message[i];
+    crc = CRCTable[crc ^ message[i]];
   return CRCTable[crc];
 }
 
